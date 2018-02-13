@@ -19,7 +19,7 @@ But at the start of the app I have a 30 seconds break to think about my work.
 
 # How can i break the break
 
-Its easy just contact me(bmp@gmx.de) and after a Donation i give you a Regestration Code for the App.
+Its easy just [contact me](bmp@gmx.de) and after a Donation i give you a Regestration Code for the App.
 *But i have allready Donaite in the past for the old App*
 Then just contact me and i send you the Code.
 
