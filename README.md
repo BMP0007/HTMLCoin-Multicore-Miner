@@ -12,7 +12,7 @@ In this way, the matching threads are preselected based on the available cores.
 The blocks found are displayed at any time. Just like the existing connections. 
 The CPU load is also displayed and is an important parameter to see if the miners are working.
 
-# How match Cost the App
+# How much does the app cost
 
 The app is free.
 But at the start of the app I have a 30 seconds break to think about my work.
