@@ -27,3 +27,8 @@ Then just contact me and i send you the Code.
 
 The old App is make for the original Miner.
 But Cooper's miner is much better and find more Blocks.
+
+# How can i Install / Use the App
+
+Just [Download it here](https://github.com/BMP0007/HTMLCoin-Multicore-Miner/blob/master/MinerGui64.zip) and unzip it.
+Then Start the MinerGui64.exe.
