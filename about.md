@@ -19,3 +19,7 @@ I see in the Telegram Channel that many Windows Users are not bring Coopers Mine
 
 YES PLEASE MAKE IT !!!
 My Gui works only with Coopers Miner. So everybody of us must have Donations for Beer.....
+
+**Where are the HTML Adress to Donaite?**
+
+HnoL8eg6F3aQPBPGimx9b9stsKzuR9VPkQ
