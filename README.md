@@ -1,38 +1,42 @@
 # HTMLCoin-Multicore-Miner Ver.: 0.0.1
 
-This App is a GUI for ["Coopers"](https://t.me/astarzo) ["Multitread Miner"](https://github.com/kerastinell/HTMLCOIN/releases/tag/v2.0.1.0-mt).
+This App is a GUI for ["Cooper's"](https://t.me/astarzo) ["Multithread Miner"](https://github.com/kerastinell/HTMLCOIN/releases/tag/v2.0.1.0-mt).
 
 ![Picture](http://nwa.marcusberger.de/Miner.jpg)
 
-
-# Why use this App ?
+# Why use this App?
 
 The program makes it easier to use the miner.
-In this way, the matching threads are preselected based on the available cores.
-The blocks found are displayed at any time. Just like the existing connections. 
-The CPU load is also displayed and is an important parameter to see if the miners are working.
+You can match threads based on the available cores.
 
-# How much does the app cost
+These stats are displayed at all times:
+* The blocks found,
+* peer connections, and
+* CPU load. 
 
-The app is free.
-But at the start of the app I have a 30 seconds break to think about my work.
+CPU load is an important parameter to see if the miners is working.
 
-# How can i break the break
+# How much does the app cost?
 
-Its easy just [contact me](bmp@gmx.de) and after a Donation i give you a Regestration Code for the App.
-*But i have allready Donaite in the past for the old App*
-Then just contact me and i send you the Code.
+The app is free. At the start of the app, I have a 30 second break to think about my work.
 
-# Why you now make a new App ?
+# How can I break the break?
 
-The old App is make for the original Miner.
-But Cooper's miner is much better and find more Blocks.
+It is easy just [contact me](mailto:bmp@gmx.de) and after a donation I give you a Registration Code for the App.
 
-# How can i install / use the App
+*But I have already Donated in the past for the old App*
+Then just contact me and I send you the Code.
 
-Just [Download it here](https://github.com/BMP0007/HTMLCoin-Multicore-Miner/raw/master/MinerGui64.zip) and unzip it.
+# Why you now make a new App?
+
+The old App I made is for the original Miner.
+Cooper's miner is much better and find more Blocks.
+
+# How can I install / use the App?
+
+Just [download it here](https://github.com/BMP0007/HTMLCoin-Multicore-Miner/raw/master/MinerGui64.zip) and unzip it.
 Then Start the MinerGui64.exe.
 
-# How i get my Coins ?
+# How can I get my Coins?
 
-If you found a Block you get 1250 HTMLCoins. There are in our Wallet, just close the MinerGui64.exe and start your Wallet. 
+If you found a Block you get 1250 HTMLCoins. They are in our wallet. Just close the MinerGui64.exe and start your Wallet. 
