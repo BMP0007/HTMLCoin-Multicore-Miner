@@ -1,4 +1,4 @@
-# HTMLCoin-Multicore-Miner Ver.: 0.0.1
+# HTMLCoin-Multicore-Miner Ver.: 0.0.2
 
 This App is a GUI for ["Cooper's"](https://t.me/astarzo) ["Multithread Miner"](https://github.com/kerastinell/HTMLCOIN/releases/tag/v2.0.1.0-mt).
 
@@ -8,10 +8,14 @@ This App is a GUI for ["Cooper's"](https://t.me/astarzo) ["Multithread Miner"](h
 
 The program makes it easier to use the miner.
 You can match threads based on the available cores.
+After an error, the mining process restarts itself.
 
 These stats are displayed at all times:
-* The blocks found,
-* peer connections, and
+* CPU load,
+* blocks found,
+* peer connections,
+* HTMLCoin Balance, 
+* Block# and,
 * CPU load. 
 
 CPU load is an important parameter to see if the miners is working.
