@@ -1,5 +1,5 @@
 ;#NoEnv
-;#SingleInstance, Force
+#SingleInstance, IGNORE
 BF = 0
 Con2 = 0
 ListLines, On
@@ -7,9 +7,9 @@ OnExit, GuiClose
 Button = Start Mining
 CMDStopp = %A_ScriptDir%\htmlcoin-cli.exe stop
 
-RegRead, TEST, ***** Find the Key ****
-Test0 := ***** Find the Key ****
-Test2 := ***** Find the Key ****
+RegRead, TEST, *** Find the KEY ***
+Test0 := *** Find the KEY ***
+Test2 := *** Find the KEY ***
 IniRead, Prem, %A_ScriptDir%\Miner.ini, Key, Key
 
 Menu, Tray, NoStandard 
@@ -26,7 +26,7 @@ If Test2 = %Prem%
 
 ok:	
 		
-loop, reg, ***** Find the Cores ****
+loop, reg, *** Find the Cores ***
 {
     if a_LoopRegType = key
         Wert =
@@ -79,40 +79,43 @@ SplitPath, wallet,,VerzWallet
 
 FileDelete, %VerzWallet%\debug.log
 
-
+Run, %A_ScriptDir%\htmlcoind.exe --shrinkdebugfile,,Hide
 Gui, Destroy
 ;Gui +AlwaysOnTop
 Gui, Margin, 5, 5
 Gui, Font, s11, Verdana
 Gui, Add, Text, , HTMLCoin GUI for Multicore Miner 64 Bit.
 Gui, Font, s8, Verdana
-Gui, Add, Text, ,Please choose the number of Treads:
+Gui, Add, Text, ,Please choose the number of threads:
 Gui, Font, s7, Verdana
-Gui, Add, Text, ,You have %RCores% CPU Cores in you Maschine.`nI recomend you to use a maximun of %Cores% Treads to mining.
+Gui, Add, Text, ,You have %RCores% CPU cores in you Maschine.`nI recommend that you use a maximum of %Cores% threads to mine.
 Gui, Add, Edit, X230 y33 W45 vTreads
 Gui, Add, UpDown, vMyUpDown Range1-128, %Cores%
 Gui, Font, s10 Bold, Verdana 
 Gui, Add, Button, X288 y29 gButton vButton ,%Button%
 Gui, Font, s7, Verdana
 Gui, Add, Text, W300 vStatus x5 y92, Hit Start do beginn Mining.
-Gui, Add, Text,vConnect x280 y128 w180 ,Connections = %con2%
-Gui, Add, Text, x170 y128 w100 vBlocks ,Blocks-Found: %BF%
-Gui, Add, Text, x95 y128 w50 ,Cores: %RCores%
-Gui, Add, Text, x10 y128 w70 vCPUL,%CPUL%
-Gui, Show,h150 w400, HTMLCoin Multicore Miner Ver.: %version%
+Gui, Add, Text,vConnect x290 y128 w180 ,Connections: %con2%
+Gui, Add, Text, x150 y128 w100 vBlocks ,Blocks-Found: %BF%
+Gui, Add, Text, x5 y128 w145 vCPUL,%CPUL%
+Gui, Add, Text,vBalance x5 y148 w145 ,Balance: %Bala1%
+Gui, Add, Text,vBlock x150 y148 w180 ,Block: %Blo2%
+Gui, Add, Text,vPow x290 y148 w180 ,POW: %pows1%
+Gui, Show,h180 w400, HTMLCoin Multicore Miner Ver.: %version%
+
 
 SetTimer, RCPULoad, 1000
 CC = 0
 GoTo, RCPULoad
 
 Deamon:
-			GuiControl, Text, Status, Starting the Deamon.
-			Run, %A_ScriptDir%\htmlcoind.exe --shrinkdebugfile,,Hide
-			sleep 3000
-			GuiControl, Text, Status, Deamon is now running.
-			sleep 3000
-			GuiControl, Text, Status, Check the Connections.
-			sleep 3000
+			;GuiControl, Text, Status, Starting the Deamon.
+			;Run, %A_ScriptDir%\htmlcoind.exe --shrinkdebugfile,,Hide
+			;sleep 3000
+			;GuiControl, Text, Status, Deamon is now running.
+			;sleep 3000
+			;GuiControl, Text, Status, Check the Connections.
+			;sleep 3000
 			gosub Connections
 			
 Connections:
@@ -122,9 +125,9 @@ Connections:
 			FileReadLine, ConT, %A_ScriptDir%\info, 9
 			FileDelete, %A_ScriptDir%\info
 			StringSplit,Con, ConT, :, `,
-			GuiControl, Text, Connect, Connections = %Con2%
-			GuiControl, Text, Status, Wait for the Connections we have%Con2% from 4 needed.
-				if con2 > 3 
+			GuiControl, Text, Connect, Connections: %Con2%
+			GuiControl, Text, Status, Wait for the Connections we have %Con2% from 4 needed.
+				if con2 > 4 
 						{
 						GuiControl, Text, Status, Miners are Working....
 						sleep 4000
@@ -151,15 +154,54 @@ RCPULoad:
 		CC = 0
 		gosub Count
 		}
-
+return
 Count:
 			BF = 0
+			powT = 0
 			file = %VerzWallet%\debug.log   
 			FileRead, txt, %file%
 			while, R:= RegExMatch(txt,"proof-of-work found",Out,!R ? 1 : R+Strlen(Out))
 				BF++
 			GuiControl, Text, Blocks, Blocks-Found: %BF%
+	
+			FileDelete, %A_ScriptDir%\info
+			CMDInfo = %A_ScriptDir%\htmlcoin-cli.exe getinfo >>info 2>&1
+			RunWait, %comspec% /c %CMDInfo%, ,Hide
+			
+			FileReadLine, Info, %A_ScriptDir%\info, 1
+			IfInString, Info, error
+				{
+				Run, %A_ScriptDir%\htmlcoind.exe --shrinkdebugfile,,Hide
+				
+					If Button = Start Mining
+							{
+								gosub Deamon
+							}	
+				
+				}
+			
+			FileReadLine, ConT, %A_ScriptDir%\info, 9
+			StringSplit,Con, ConT, :, `,
+			GuiControl, Text, Connect, Connections: %Con2%
+			
+			FileReadLine, BalT, %A_ScriptDir%\info, 5
+			StringSplit,Bal, BalT, :, `,
+			StringSplit,Bala, Bal2, .,
+			GuiControl, Text, Balance, Balance: %Bala1%
+			
+			FileReadLine, BloT, %A_ScriptDir%\info, 7
+			StringSplit,Blo, BloT, :, `,
+			GuiControl, Text, Block, Block: %Blo2%
+			
+			FileReadLine, powT, %A_ScriptDir%\info, 12
+			StringSplit,pow, powT, :, `,
+			StringSplit,pows, pow2, .,
+			GuiControl, Text, Pow, POW: %pows1%
+
+			FileDelete, %A_ScriptDir%\info
+			
 			return
+			
 
 Button:
 Gui, Submit 
@@ -186,7 +228,7 @@ Return
 		; Using 'true' above and the call below allows the script to remain responsive.
 		whr.WaitForResponse()
 		version := whr.ResponseText
-		if (version = "0.0.1")
+		if (version = "0.0.2")
 			{
 			Gosub, Start
 			Return
