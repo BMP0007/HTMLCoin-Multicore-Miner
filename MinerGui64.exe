@@ -6,10 +6,17 @@ ListLines, On
 OnExit, GuiClose
 Button = Start Mining
 CMDStopp = %A_ScriptDir%\htmlcoin-cli.exe stop
+Pfad=%A_ScriptDir%
 
-RegRead, TEST, *** Find the KEY ***
-Test0 := *** Find the KEY ***
-Test2 := *** Find the KEY ***
+IfInString, Pfad, (
+		{
+			msgbox,48,ERROR, I found a ( ) in the Pfad.`nIn this Case the App didnt work.`n`nPlease rename the Folder without using a (). 
+			gosub GuiClose
+		}
+		
+RegRead, TEST, *** find the KEY ***
+Test0 := *** find the KEY ***
+Test2 := *** find the KEY ***
 IniRead, Prem, %A_ScriptDir%\Miner.ini, Key, Key
 
 Menu, Tray, NoStandard 
@@ -26,7 +33,7 @@ If Test2 = %Prem%
 
 ok:	
 		
-loop, reg, *** Find the Cores ***
+loop, reg, *** find the Cores ***
 {
     if a_LoopRegType = key
         Wert =
@@ -67,7 +74,7 @@ Wallet:
 Process, Exist, htmlcoin-qt.exe
 	IF !errorlevel=0
 	{
-    msgbox, The Wallet is Open...`n`nYou must Close it first ! 
+    msgbox,48,ERROR, The Wallet is Open...`n`nYou must Close it first ! 
 	exitapp
 	}
 	
@@ -143,6 +150,8 @@ Connections:
 Miners:
 			CMDMiner = %A_ScriptDir%\htmlcoin-cli.exe setgenerate true %Treads%
 			Run, %comspec% /c %CMDMiner%, ,Hide
+			GuiControl, Show, Button
+
 			return
 
 RCPULoad:
@@ -210,6 +219,7 @@ GuiControlGet, Button,, Button
 If Button = Start Mining
 		{
 			GuiControl, Text, Button, Stop Mining
+			GuiControl, Hide, Button
 			gosub Deamon
 		}	
 Else
@@ -228,7 +238,7 @@ Return
 		; Using 'true' above and the call below allows the script to remain responsive.
 		whr.WaitForResponse()
 		version := whr.ResponseText
-		if (version = "0.0.2")
+		if (version = "0.0.3")
 			{
 			Gosub, Start
 			Return
@@ -238,7 +248,7 @@ Return
 			MsgBox,4,Update,  There is a newer Version %Version% of this Tool out!`n`nShould we download it now ?
 			IfMsgBox No
 				{
-				MsgBox,,WRONG ANSWER, Sorry, but this Version is outdated...`nTry it again....
+				MsgBox,48,WRONG ANSWER, Sorry, but this Version is outdated...`nTry it again....
 				ExitApp
 				}
 			IfMsgBox Yes
@@ -257,13 +267,17 @@ GuiClose:
  ExitApp
 
  Add:
+			Clipboard:=Test
 			Gui, Add, Text,,This App has take me a long Time to make it.`nYou can donate me for the work and i give you a Code.`nAfter put the registration code in this Form you never will see it again.`nYou reach me under:
-			Gui, Add, Link,, <a href="mailto:BMP@gmx.de?subject=Windows Miner RegKey - %Test%">BMP@gmx.de</a>
-			Gui, Add, Link,, <a href="https://t.me/marcusberger">Telegram: MarcusBerger</a>
-			Gui, Add, Text,,Your Installation Code is:`n%Test%
+			Gui, Add, Link, x10 y70, <a href="mailto:BMP@gmx.de?subject=Windows Miner RegKey - %Test%">BMP@gmx.de</a>
+			Gui, Add, Link, x100 y70, <a href="https://t.me/marcusberger">Telegram: MarcusBerger</a>
+			Gui, Add, Link,x10 y90, <a href="https://html.mastercalls.io/address/HnoL8eg6F3aQPBPGimx9b9stsKzuR9VPkQ">Donate: HnoL8eg6F3aQPBPGimx9b9stsKzuR9VPkQ</a>
+			Gui, Add, Text,,Your Installation Code is:
+			Gui, Add, Text,x10 y135,%Test%
 			Gui, Add, Text,, Put in the registration code:
 			Gui, Add, Edit, vName
-			Gui, Add, Button, gBD Default, OK
+			Gui, Add, Button, y180 x140 gBD Default, OK
+			Gui, Add, Button, y180 x220 gND Default, Start without Donate
 			Gui, Show,,Donate
 			Return
 
@@ -271,7 +285,7 @@ BD:
 			Gui, Submit 
 			If Test2 = %Name%
 				{
-					MsgBox Thank you for the Donation !!!
+					msgbox,16,THANKS !!!, Thank you for the Donation !!!
 					IniWrite, %Name%, %A_ScriptDir%\Miner.ini, Key, Key
 					goto ok
 				}
@@ -283,6 +297,13 @@ BD:
 					SplashTextOff
 					goto ok
 				}
+				
+ND:				
+					SplashTextOn,300,100,Please Donate, Please Donate for this App !`n`nThis Windows close after 30 Seconds.`nPlease Donate for my work....
+					Gui, -AlwaysOnTop
+					sleep 30000
+					SplashTextOff
+					goto ok	
  
 Help:
 run, https://github.com/BMP0007/HTMLCoin-Multicore-Miner/blob/master/README.md
